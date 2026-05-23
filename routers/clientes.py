@@ -1,9 +1,30 @@
 #clientes.py
 from fastapi import APIRouter
 from database import get_db
-from models import ClientePatch
+from models import ClientePatch, ClienteAdd
 
 router = APIRouter()
+
+@router.post("/clientes")
+def adicionar_cliente(post: ClienteAdd):
+    try:
+        conn = get_db()
+        col = post.model_dump()
+        colunas = ", ".join(col.keys())
+        placeholders = ", ".join("?" for _ in col.keys())
+        valores = tuple(col.values())
+        
+        conn.execute(
+            f"INSERT INTO clientes ({colunas}) VALUES ({placeholders})",
+            valores
+        )
+
+        conn.commit()
+
+        return {"mensagem": "cliente adicionado com sucesso"}
+
+    finally:
+        conn.close()
 
 @router.get("/clientes") #Get que retorna tudo
 def listar_clientes(): 
@@ -57,5 +78,22 @@ def alterar_um_cliente(id: int, patch: ClientePatch):
 
         return {"mensagem": "tabela atualizada com sucesso"}
     
+    finally:
+        conn.close()
+
+@router.delete("/deletar_clientes/{id}")
+def deletar_um_cliente(id:int):
+    try:
+        conn = get_db()
+
+        cursor = conn.execute(f"DELETE FROM clientes WHERE id = ?", (id,))
+
+        if cursor.rowcount == 0:
+            return {"erro": "cliente não encontrado"}
+
+        conn.commit()
+
+        return {"mensagem": "id deletado com sucesso"}
+
     finally:
         conn.close()

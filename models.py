@@ -24,6 +24,23 @@ class ClientePatch(BaseModel):
     estilo_preferido: Optional[str] = None
     frequencia_compra_roupas: Optional[str] = None
 
+class ClienteAdd(BaseModel):
+    nome: str
+    idade: int
+    genero: str
+    cidade: str
+    estado: str
+    profissao: str
+    area_formacao: str
+    salario_mensal: float
+    gasto_mensal: float
+    renda_disponivel: float
+    ticket_medio: float
+    tem_cartao_credito: int
+    score_credito: int
+    estilo_preferido: str
+    frequencia_compra_roupas: str
+
 class ProdutoPatch(BaseModel):
     nome: Optional[str] = None
     categoria: Optional[str] = None
@@ -31,3 +48,11 @@ class ProdutoPatch(BaseModel):
     marca: Optional[str] = None
     estilo_alvo: Optional[str] = None
     descricao: Optional[str] = None
+
+class ProdutoAdd(BaseModel):
+    nome: str
+    categoria: str
+    preco: float
+    marca: str
+    estilo_alvo: str
+    descricao: str
