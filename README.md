@@ -24,5 +24,5 @@ e utiliza LLM para avaliar a propensão de compra
 - `POST /score` — retorna o score de propensão de compra de um cliente para um produto
 - `PUT /clientes/{id}` — atualiza dados de um cliente
 - `PUT /produtos/{id}` — atualiza dados de um produto
-- `DELETE /clientes/{id}` — remove um cliente
-- `DELETE /produtos/{id}` — remove um produto
+- `DELETE /clientes/{id}` — remove um cliente (em desenvolvimento)
+- `DELETE /produtos/{id}` — remove um produto (em desenvolvimento)
